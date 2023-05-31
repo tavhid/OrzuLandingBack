@@ -19,3 +19,16 @@
 
 # Go workspace file
 go.work
+
+# Files are for sequential use only
+test[^_]*
+
+# Logs
+*.log
+
+# Private information
+config.json
+
+# IDE / Dev env.
+.vscode
+cmd/cmd

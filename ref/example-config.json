@@ -1,0 +1,29 @@
+{
+	"server": {
+	  "host": "localhost",
+	  "port": 5000
+	},
+	"logger": {
+	  "level": "DEBUG",
+	  "path": "/path/to/your/log/file.log"
+	},
+	"postgres": {
+	  "username": "postgres",
+	  "password": "postgres",
+	  "host": "localhost",
+	  "port": 5432,
+	  "ssl_mode": "disable",
+	  "database_name": "database"
+	},
+	"redis": {
+	  "host": "localhost",
+	  "port": "6379",
+	  "db_index": 0
+	},
+	"sms_service": {
+	  "url": "https://api.service.com/sms/send",
+	  "from": "Org. name",
+	  "user": "username",
+	  "password": "password"
+	}
+}

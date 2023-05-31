@@ -1,0 +1,209 @@
+openapi: 3.0.0
+info:
+  title: Orzu Landing
+  version: 1.0.0
+tags:
+  - name: Ping Pong!
+    description: Check status of server
+  - name: Info
+    description: Information
+  - name: Application
+    description: Application
+  - name: Others
+    description: Other Routes
+servers:
+  - url: /
+  - url: /api
+
+paths:
+  /ping:
+    get:
+      tags:
+      - Ping Pong!
+      summary: Ping
+      responses:
+        "200":
+          description: Successful response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example:
+                  message: "success"
+                  payload: Renimus pong!
+
+  /getInfo:
+    get:
+      tags:
+      - Info
+      summary: Getting Info
+      description: <h1>Obtaining data at the first loading of the main page.</h1>
+      responses:
+        "200":
+          description: Information successfully received
+          content:
+            application/json:
+              schema:
+                type: object
+                x-content-type: application/json
+              example:
+                message: success
+                payload:
+                  limit: 50000
+
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                x-content-type: application/json
+                example:
+                  message: internal server error 
+                  payload: null
+
+  /sendApplication:
+    post:
+      tags:
+      - Application
+      summary: Accepting the application followed by sending an OTP code.
+      requestBody:  
+        description: <h1>Getting application data</h1>
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object 
+              required:
+                - full_name
+                - phone
+                - region_id
+                - application_type_id
+              properties:
+                full_name:
+                  type: string
+                  example: Jhon Cena Abdusatorovich
+                phone:
+                  type: string
+                  example: 123456789
+                region_id:
+                  type: integer
+                  example: 2
+                application_type_id:
+                    type: integer
+                    example: 3
+      responses:
+        "200":
+          description: Application sent successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                x-content-type: application/json
+              example:
+                message: success
+                payload: null
+        "400":
+          description:
+            One of
+            <li> invalid phone number format </li> <br>
+            <li> bad request </li> <br>
+            <li> one or more fields are empty </li> <br>
+            <li> fill in the correct field or fields </li> <br>
+          content:
+            application/json:
+              schema:
+                type: object
+                x-content-type: application/json
+              example:
+                message: bad request
+                payload: null
+        "419":
+          description: Retry limit exceeded
+          content:
+            application/json:
+              schema:
+                type: object
+                x-content-type: application/json
+              example:
+                message: retry limit exceeded
+                payload: null
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                x-content-type: application/json
+              example:
+                message: internal server error 
+                payload: null
+            
+  /checkOtp:
+    get:
+      tags:
+      - Application
+      summary: Checking otp code
+      description: <h1>Checking the received code for authenticity</h1>
+      parameters:
+        - in: query
+          required: true
+          name: phone
+          description: The phone to which the code was sent
+          schema:
+            type: string
+            example: 79260000000
+        - in: query
+          required: true
+          name: code
+          schema:
+            type: string
+            example: 1234
+          description: Received code
+      responses:
+        "200":
+          description: The code is genuine
+          content:
+            application/json:
+              schema:
+                type: object
+                x-content-type: application/json
+              example:
+                message: success
+                payload: null
+        "400":
+          description:
+            One of
+            <li> invalid phone number format </li> <br>
+            <li> bad request </li> <br>
+            <li> one or more fields are empty </li> <br>
+            <li> incorrect otp code </li> <br>
+            <li> fill in the correct field or fields </li> <br>
+          content:
+            application/json:
+              schema:
+                type: object
+                x-content-type: application/json
+              example:
+                message: bad request
+                payload: null
+        "419":
+          description: Retry limit exceeded
+          content:
+            application/json:
+              schema:
+                type: object
+                x-content-type: application/json
+              example:
+                message: retry limit exceeded
+                payload: null
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                x-content-type: application/json
+              example:
+                message: internal server error 
+                payload: null
