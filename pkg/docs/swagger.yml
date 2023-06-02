@@ -9,14 +9,14 @@ tags:
     description: Information
   - name: Application
     description: Application
-  - name: Others
-    description: Other Routes
+  - name: Merchant
+    description: Merchant
 servers:
   - url: /
   - url: /api
 
 paths:
-  /ping:
+  /landing/ping:
     get:
       tags:
       - Ping Pong!
@@ -30,9 +30,9 @@ paths:
                 type: string
                 example:
                   message: "success"
-                  payload: Renimus pong!
+                  payload: Backend orzu landing pong!
 
-  /getInfo:
+  /landing/getInfo:
     get:
       tags:
       - Info
@@ -50,7 +50,6 @@ paths:
                 message: success
                 payload:
                   limit: 50000
-
         "500":
           description: Internal Server Error
           content:
@@ -62,7 +61,7 @@ paths:
                   message: internal server error 
                   payload: null
 
-  /sendApplication:
+  /landing/sendApplication:
     post:
       tags:
       - Application
@@ -139,7 +138,7 @@ paths:
                 message: internal server error 
                 payload: null
             
-  /checkOtp:
+  /landing/checkOtp:
     get:
       tags:
       - Application
@@ -206,4 +205,57 @@ paths:
                 x-content-type: application/json
               example:
                 message: internal server error 
+                payload: null
+
+  /landing/getMerchantList:
+    get:
+      tags:
+      - Merchant
+      summary: Getting a list of merchants
+      description: <h1>Getting a list of merchants</h1>
+      parameters:
+        - in: query
+          name: search
+          description: Search text for future filtering
+          schema:
+            type: string
+            example: Burger king 
+        - in: query
+          required: false
+          name: city
+          description: The name of the city for future filtering
+          schema:
+            type: string
+            example: Душанбе
+        - in: query
+          required: false
+          name: category
+          description: Сategory id for future filtering
+          schema:
+            type: number
+            example: 2
+        - in: query
+          required: false
+          name: page
+          description: Page of pagination
+          schema:
+            type: number
+            example: 2
+        - in: query
+          required: false
+          name: pageLimit
+          description: Limit of pagination
+          schema:
+            type: number
+            example: 2
+      responses:
+        "200":
+          description: Merchant list successfully received
+          content:
+            application/json:
+              schema:
+                type: object
+                x-content-type: application/json
+              example:
+                message: success
                 payload: null

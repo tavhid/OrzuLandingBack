@@ -2,11 +2,10 @@ package merchant
 
 import (
 	"cl/internal/structs"
-	"cl/pkg/bootstrap/http/misc/response"
 	"fmt"
 )
 
-func (p *provider) GetList(search, city string, category uint) (merchant []structs.Merchant, err error) {
+func (p *provider) GetList(search, city string, category, page, pageLimit uint) (merchant []structs.Merchant, err error) {
 	search = "%" + search + "%"
 	var where string
 
@@ -30,15 +29,14 @@ func (p *provider) GetList(search, city string, category uint) (merchant []struc
 		Model(&structs.Merchant{}).
 		Select("*").
 		Where(where).
+		Limit(int(pageLimit)).
+		Offset((int(page) - 1) * int(pageLimit)).
 		Scan(&merchant).
 		Error
 
 	if err != nil {
 		p.logger.Error(err)
 		return
-	}
-	if len(merchant) == 0 {
-		err = response.ErrDataNotFound
 	}
 
 	return

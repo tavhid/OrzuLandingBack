@@ -13,7 +13,7 @@ var Module = fx.Provide(MerchantInfo)
 
 // Merchant ...
 type Merchant interface {
-	GetList(search, city string, category uint) (merchant []structs.Merchant, err error)
+	GetList(search, city string, category, page, pageLimit uint) (merchant []structs.Merchant, err error)
 	Get(id uint) (merchant structs.Merchant, err error)
 }
 
