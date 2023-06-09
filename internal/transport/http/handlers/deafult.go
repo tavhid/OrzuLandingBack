@@ -33,7 +33,7 @@ func (h *Handler) ServeSwaggerFiles(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if strings.Contains(r.URL.String(), "yaml") {
-		http.ServeFile(w, r, pwd+"/../pkg/docs/swagger.yml")
+		http.ServeFile(w, r, pwd+"/../pkg/docs/swagger.yaml")
 		return
 	}
 

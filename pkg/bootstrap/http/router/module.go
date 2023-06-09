@@ -25,8 +25,12 @@ type HTTPRouter struct {
 }
 
 // NewRouter ...
+// TODO: inject mux.Router methods in HTTPRouter
 func NewRouter() *HTTPRouter {
+	router := mux.NewRouter()
+	router = router.PathPrefix("/landing").Subrouter()
+
 	return &HTTPRouter{
-		router: &mux.Router{},
+		router: router,
 	}
 }

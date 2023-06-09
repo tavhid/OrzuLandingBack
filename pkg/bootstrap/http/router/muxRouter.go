@@ -3,8 +3,6 @@ package router
 import (
 	"log"
 	"net/http"
-
-	"github.com/gorilla/mux"
 )
 
 // ChainsMiddlewares ...
@@ -23,11 +21,6 @@ func (h *HTTPRouter) ChainsMiddlewares(method string, handler http.HandlerFunc, 
 func (h *HTTPRouter) Handle(method string, pattern string, handler http.HandlerFunc, mw ...HTTPMw) {
 	handler = h.ChainsMiddlewares(method, handler, mw...)
 	h.router.HandleFunc(pattern, handler).Methods(method, "OPTIONS")
-}
-
-// RoutePrefix ...
-func (h *HTTPRouter) RoutePrefix(prefix string) *mux.Route {
-	return h.router.PathPrefix(prefix)
 }
 
 func (h *HTTPRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {

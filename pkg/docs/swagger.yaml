@@ -12,8 +12,8 @@ tags:
   - name: Merchant
     description: Merchant
 servers:
+  - url: /orzu
   - url: /
-  - url: /api
 
 paths:
   /landing/ping:
