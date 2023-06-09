@@ -17,9 +17,9 @@ type OtpSession struct {
 // OtpRegistration ...
 type OtpRegistration struct {
 	OtpSession
-	FullName          string `json:"full_name"`
-	RegionID          uint   `json:"region_id"`
-	ApplicationTypeID uint   `json:"application_type_id"`
+	FullName        string `json:"full_name"`
+	City            string `json:"city" validate:"required,min=1"`
+	ApplicationType string `json:"application_type" validate:"required,min=1"`
 }
 
 // OtpInput ..

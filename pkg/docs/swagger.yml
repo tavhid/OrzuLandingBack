@@ -76,8 +76,8 @@ paths:
               required:
                 - full_name
                 - phone
-                - region_id
-                - application_type_id
+                - city
+                - application_type
               properties:
                 full_name:
                   type: string
@@ -85,12 +85,12 @@ paths:
                 phone:
                   type: string
                   example: 123456789
-                region_id:
-                  type: integer
-                  example: 2
-                application_type_id:
-                    type: integer
-                    example: 3
+                city:
+                  type: string
+                  example: Душанбе
+                application_type:
+                    type: string
+                    example: Оформление орзу
       responses:
         "200":
           description: Application sent successfully

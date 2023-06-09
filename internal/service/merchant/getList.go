@@ -2,15 +2,18 @@ package merchant
 
 import (
 	"cl/internal/structs"
+	"cl/pkg/bootstrap/http/misc/response"
 	"fmt"
+	"strings"
 )
 
 func (p *provider) GetList(search, city string, category, page, pageLimit uint) (merchant []structs.Merchant, err error) {
+	search = strings.ToLower(search)
 	search = "%" + search + "%"
 	var where string
 
 	if search != "" {
-		where += fmt.Sprintf("name LIKE '%s'", search)
+		where += fmt.Sprintf("LOWER(name) LIKE '%s'", search)
 	}
 	if category != 0 {
 		if where != "" {
@@ -37,6 +40,10 @@ func (p *provider) GetList(search, city string, category, page, pageLimit uint) 
 	if err != nil {
 		p.logger.Error(err)
 		return
+	}
+
+	if merchant == nil {
+		err = response.ErrDataNotFound
 	}
 
 	return

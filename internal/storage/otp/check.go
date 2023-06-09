@@ -4,6 +4,7 @@ import (
 	"cl/internal/structs"
 	"cl/pkg/bootstrap/http/misc/response"
 	"cl/pkg/utils"
+	"log"
 )
 
 func (p *provider) CheckOTP(data structs.OtpInput) (err error) {
@@ -29,11 +30,12 @@ func (p *provider) CheckOTP(data structs.OtpInput) (err error) {
 		return response.ErrLimitExceeded
 	}
 
+	log.Println(payload)
 	err = p.application.Create(
 		payload["full_name"].(string),
 		payload["phone"].(string),
-		uint(payload["region_id"].(float64)),
-		uint(payload["application_type_id"].(float64)),
+		payload["city"].(string),
+		payload["application_type"].(string),
 	)
 
 	p.redis.Delete(phone)

@@ -11,7 +11,7 @@ var Module = fx.Provide(NewApplication)
 
 // Application ...
 type Application interface {
-	Create(fullName, phone string, regionID, applicationTypeID uint) (err error)
+	Create(fullName, phone, city, applicationType string) (err error)
 }
 
 // Dependencies ...

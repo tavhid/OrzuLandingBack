@@ -4,7 +4,7 @@ import (
 	"cl/internal/structs"
 )
 
-func (p *provider) Create(fullName, phone string, regionID, applicationTypeID uint) (err error) {
+func (p *provider) Create(fullName, phone, city, applicationType string) (err error) {
 	var applicationID int
 
 	err = p.postgres.Model(structs.Application{}).
@@ -19,10 +19,10 @@ func (p *provider) Create(fullName, phone string, regionID, applicationTypeID ui
 	result := p.postgres.
 		Model(&structs.Application{}).
 		Create(&structs.Application{
-			FullName:          fullName,
-			Phone:             phone,
-			RegionID:          regionID,
-			ApplicationTypeID: applicationTypeID,
+			FullName:        fullName,
+			Phone:           phone,
+			City:            city,
+			ApplicationType: applicationType,
 		}).
 		Error
 

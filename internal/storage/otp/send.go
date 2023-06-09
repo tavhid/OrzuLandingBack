@@ -30,6 +30,7 @@ func (p *provider) SendOTP(application structs.Application) (err error) {
 
 	tempRedisPayload, _ := p.redis.Get(application.Phone)
 	tempRedisPayload, err = utils.ParseOTP(tempRedisPayload)
+
 	if err != nil {
 		return
 	}
@@ -42,9 +43,9 @@ func (p *provider) SendOTP(application structs.Application) (err error) {
 			Code:  otpCode,
 			Phone: application.Phone,
 		},
-		FullName:          application.FullName,
-		RegionID:          application.RegionID,
-		ApplicationTypeID: application.ApplicationTypeID,
+		FullName:        application.FullName,
+		City:            application.City,
+		ApplicationType: application.ApplicationType,
 	}
 
 	if err = p.redis.Save(application.Phone, redisPayload); err != nil {
