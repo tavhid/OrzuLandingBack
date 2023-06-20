@@ -14,7 +14,7 @@ func (h *Handler) HPingPong(rw http.ResponseWriter, r *http.Request) {
 	defer resp.WriterJSON(rw)
 
 	resp.Message = response.ErrSuccess.Error()
-	resp.Payload = "Clean arch pong!"
+	resp.Payload = "Backend orzu landing pong!"
 }
 
 // HNotImplementation ...

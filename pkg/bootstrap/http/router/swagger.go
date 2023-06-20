@@ -10,7 +10,7 @@ import (
 func (h *HTTPRouter) ConnectSwagger(file func(w http.ResponseWriter, r *http.Request)) {
 	swaggerOptions := middleware.SwaggerUIOpts{
 		BasePath: "/landing",
-		SpecURL:  "/orzu/landing/swagger.yaml",
+		SpecURL:  "/landing/swagger.yaml",
 	}
 	sh := middleware.SwaggerUI(swaggerOptions, nil)
 

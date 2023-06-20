@@ -11,7 +11,8 @@ var Module = fx.Provide(NewApplication)
 
 // Application ...
 type Application interface {
-	Create(fullName, phone, city, applicationType string) (err error)
+	CreateUserApplication(application map[string]interface{}) (err error)
+	CreateMerchantApplication(application map[string]interface{}) (err error)
 }
 
 // Dependencies ...

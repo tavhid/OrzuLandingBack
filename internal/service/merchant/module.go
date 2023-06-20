@@ -13,8 +13,8 @@ var Module = fx.Provide(MerchantInfo)
 
 // Merchant ...
 type Merchant interface {
-	GetList(search, city string, category, page, pageLimit uint) (merchant []structs.Merchant, err error)
-	Get(id uint) (merchant structs.Merchant, err error)
+	GetList(search, category, city string, page, pageLimit uint) (merchant []map[string]interface{}, maxPage int64, err error)
+	Get(id uint) (merchant structs.Merchant, commissions []structs.MonthCommissionOfMerchant, affiliates []structs.AffiliateOfMerchant, err error)
 }
 
 // Dependencies ...

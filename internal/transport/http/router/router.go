@@ -13,8 +13,9 @@ func NewRouter(h *handlers.Handler, mw middlewares.Middleware) (router *transpor
 
 	router.GET("/ping", h.HPingPong, mw.CORS)
 	// router.GET("/getInfo", h.HGetInfo, mw.CORS)
+	// router.GET("/test", h.HTest, mw.CORS)
 	router.POST("/sendApplication", h.HSendApplication, mw.CORS)
-	router.GET("/checkOtp", h.HCheckOTP, mw.CORS)
+	router.POST("/checkOtp", h.HApplicationCheckOTP, mw.CORS)
 	router.GET("/getMerchantList", h.HMerchantGetList, mw.CORS)
 	router.GET("/getMerchant", h.HMerchantGet, mw.CORS)
 	router.GET("/qr", h.HRedirectQR, mw.CORS)

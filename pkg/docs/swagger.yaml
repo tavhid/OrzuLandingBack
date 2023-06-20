@@ -5,8 +5,8 @@ info:
 tags:
   - name: Ping Pong!
     description: Check status of server
-  - name: Info
-    description: Information
+  # - name: Info
+  #   description: Information
   - name: Application
     description: Application
   - name: Merchant
@@ -32,34 +32,34 @@ paths:
                   message: "success"
                   payload: Backend orzu landing pong!
 
-  /landing/getInfo:
-    get:
-      tags:
-      - Info
-      summary: Getting Info
-      description: <h1>Obtaining data at the first loading of the main page.</h1>
-      responses:
-        "200":
-          description: Information successfully received
-          content:
-            application/json:
-              schema:
-                type: object
-                x-content-type: application/json
-              example:
-                message: success
-                payload:
-                  limit: 50000
-        "500":
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
-                x-content-type: application/json
-                example:
-                  message: internal server error 
-                  payload: null
+  # /landing/getInfo:
+  #   get:
+  #     tags:
+  #     - Info
+  #     summary: Getting Info
+  #     description: <h1>Obtaining data at the first loading of the main page.</h1>
+  #     responses:
+  #       "200":
+  #         description: Information successfully received
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: object
+  #               x-content-type: application/json
+  #             example:
+  #               message: success
+  #               payload:
+  #                 limit: 50000
+  #       "500":
+  #         description: Internal Server Error
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: object
+  #               x-content-type: application/json
+  #               example:
+  #                 message: internal server error 
+  #                 payload: null
 
   /landing/sendApplication:
     post:
@@ -67,7 +67,29 @@ paths:
       - Application
       summary: Accepting the application followed by sending an OTP code.
       requestBody:  
-        description: <h1>Getting application data</h1>
+        description: |-
+          # Getting application data <br/>
+          ### Type of client = user:
+          ```
+            {
+              "type_of_client": "user",
+              "full_name": "123",
+              "phone": "123411178",
+              "city": "ac",
+              "application_type": "asdgf"
+            }
+          ```
+          ### Type of client = merchant:
+          ```
+            {
+              "type_of_client": "merchant",
+              "full_name": "asd",
+              "company_name": "dsd",
+              "address": "qwe",
+              "phone": "123479111",
+              "industry": "asd"
+            }
+          ```
         required: true
         content:
           application/json:
@@ -78,7 +100,11 @@ paths:
                 - phone
                 - city
                 - application_type
+                - t
               properties:
+                type_of_client:
+                  type: string
+                  example: user
                 full_name:
                   type: string
                   example: Jhon Cena Abdusatorovich
@@ -105,10 +131,10 @@ paths:
         "400":
           description:
             One of
-            <li> invalid phone number format </li> <br>
             <li> bad request </li> <br>
-            <li> one or more fields are empty </li> <br>
-            <li> fill in the correct field or fields </li> <br>
+            <li> Неверный формат телефонного номера </li> <br>
+            <li> Одно или несколько полей пустые </li> <br>
+            <li> Вам следует правильно заполнить все поля </li> <br>
           content:
             application/json:
               schema:
@@ -125,7 +151,7 @@ paths:
                 type: object
                 x-content-type: application/json
               example:
-                message: retry limit exceeded
+                message: Превышен лимит повторных попыток
                 payload: null
         "500":
           description: Internal Server Error
@@ -151,7 +177,7 @@ paths:
           description: The phone to which the code was sent
           schema:
             type: string
-            example: 79260000000
+            example: 123456789
         - in: query
           required: true
           name: code
@@ -173,11 +199,10 @@ paths:
         "400":
           description:
             One of
-            <li> invalid phone number format </li> <br>
             <li> bad request </li> <br>
-            <li> one or more fields are empty </li> <br>
-            <li> incorrect otp code </li> <br>
-            <li> fill in the correct field or fields </li> <br>
+            <li> Одно или несколько полей пустые </li> <br>
+            <li> Неправильный код otp </li> <br>
+            <li> Вам следует правильно заполнить все поля </li> <br>
           content:
             application/json:
               schema:
@@ -194,7 +219,7 @@ paths:
                 type: object
                 x-content-type: application/json
               example:
-                message: retry limit exceeded
+                message: Превышен лимит повторных попыток
                 payload: null
         "500":
           description: Internal Server Error
@@ -232,21 +257,21 @@ paths:
           name: category
           description: Сategory id for future filtering
           schema:
-            type: number
+            type: integer
             example: 2
         - in: query
           required: false
           name: page
           description: Page of pagination
           schema:
-            type: number
+            type: integer
             example: 2
         - in: query
           required: false
           name: pageLimit
           description: Limit of pagination
           schema:
-            type: number
+            type: integer
             example: 2
       responses:
         "200":
@@ -258,4 +283,93 @@ paths:
                 x-content-type: application/json
               example:
                 message: success
-                payload: null
+                payload:
+                  maxPage: 1
+                  merchantsList:
+                  - id: 1
+                    logo:
+                    name: Жорик
+                  - id: 2
+                    logo:
+                    name: Клавиатура
+                  - id: 3
+                    logo:
+                    name: Паришь
+                  - id: 4
+                    logo:
+                    name: Бургеры халал
+
+components:
+  schemas:
+    UserApplication:
+      type: object
+      required:
+        - full_name
+        - phone
+        - city
+        - application_type
+      properties:
+        full_name:
+          type: string
+        phone: 
+          type: string
+          minLength: 9
+          maxLength: 9
+        city:
+          type: string
+          enum: []
+        application_type: 
+          type: string
+          enum: [Оформление орзу, Повысить лимит орзу]
+    MerchantApplication:
+      type: object
+      required:
+        - full_name
+        - company_name
+        - address
+        - phone
+        - industry
+      properties:
+        full_name:
+          type: string
+        phone: 
+          type: string
+          minLength: 9
+          maxLength: 9
+        address:
+          type: string
+        company_name: 
+          type: string
+        industry:
+          type: string
+    Merchant:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        category:
+          type: string
+        logo:
+          type: string
+        city: 
+          type: string
+        affiliates:
+          type: array
+          items:
+            type: object
+            properties:
+              address: 
+                type: string
+              contact:
+                type: string
+        commissions:
+          type: array
+          items:
+            type: object
+            properties:
+              date: 
+                type: number
+              commission:
+                type: integer

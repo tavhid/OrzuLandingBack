@@ -20,7 +20,7 @@ func (h *Handler) HMerchantGet(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	merchant, err := h.merchant.Get(uint(id))
+	merchant, commissions, affiliates, err := h.merchant.Get(uint(id))
 
 	if err != nil {
 		resp.Message = err.Error()
@@ -28,5 +28,9 @@ func (h *Handler) HMerchantGet(rw http.ResponseWriter, r *http.Request) {
 	}
 
 	resp.Message = response.ErrSuccess.Error()
-	resp.Payload = merchant
+	resp.Payload = map[string]interface{}{
+		"merchant_data": merchant,
+		"commissions":  commissions,
+		"affiliates":   affiliates,
+	}
 }

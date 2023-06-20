@@ -45,8 +45,11 @@ func Postgres(params Dependencies) (pdb *gorm.DB) {
 	if err := conn.Ping(); err != nil {
 		panic(err)
 	}
-	pdb.AutoMigrate(&structs.Application{})
+	pdb.AutoMigrate(&structs.UserApplication{})
+	pdb.AutoMigrate(&structs.MerchantApplication{})
 	pdb.AutoMigrate(&structs.Merchant{})
+	pdb.AutoMigrate(&structs.MonthCommissionOfMerchant{})
+	pdb.AutoMigrate(&structs.AffiliateOfMerchant{})
 	params.Logger.Info("Postgres pong!")
 
 	return

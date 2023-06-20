@@ -1,14 +1,16 @@
 package storage
 
 import (
+	"cl/internal/storage/application"
+	"cl/internal/storage/helper"
 	"cl/internal/storage/merchant"
-	"cl/internal/storage/otp"
 
 	"go.uber.org/fx"
 )
 
 // Module ...
 var Module = fx.Options(
-	otp.Module,
 	merchant.Module,
+	helper.Module,
+	application.Module,
 )

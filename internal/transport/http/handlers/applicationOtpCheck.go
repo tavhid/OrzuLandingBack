@@ -7,7 +7,7 @@ import (
 )
 
 // HCheckOTP ...
-func (h *Handler) HCheckOTP(rw http.ResponseWriter, r *http.Request) {
+func (h *Handler) HApplicationCheckOTP(rw http.ResponseWriter, r *http.Request) {
 	var resp response.Response
 	defer resp.WriterJSON(rw)
 
@@ -19,7 +19,7 @@ func (h *Handler) HCheckOTP(rw http.ResponseWriter, r *http.Request) {
 		OtpCode:     code,
 	}
 
-	err := h.otp.CheckOTP(data)
+	err := h.application.Create(data)
 	if err != nil {
 		resp.Message = err.Error()
 		return

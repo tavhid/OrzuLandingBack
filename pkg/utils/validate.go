@@ -24,6 +24,9 @@ func PlaygroundValidator(errs error) (err error) {
 		if errs.ActualTag() == "required" {
 			return response.ErrEmptyFileds
 		}
+		if errs.ActualTag() == "number" {
+			return response.ErrIncorrectFillFields
+		}
 		if errs.ActualTag() == "max" || errs.ActualTag() == "min" || errs.ActualTag() == "len" {
 			return response.ErrIncorrectFillFields
 		}

@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func (p *provider) GetList(search, city string, category, page, pageLimit uint) (merchant []structs.Merchant, err error) {
+func (p *provider) GetList(search, city, category string, page, pageLimit uint) (merchant []map[string]interface{}, maxPage int64, err error) {
 	search = strings.ToLower(search)
 	search = "%" + search + "%"
 	var where string
@@ -15,7 +15,7 @@ func (p *provider) GetList(search, city string, category, page, pageLimit uint) 
 	if search != "" {
 		where += fmt.Sprintf("LOWER(name) LIKE '%s'", search)
 	}
-	if category != 0 {
+	if category != "" {
 		if where != "" {
 			where += " AND "
 		}
@@ -30,8 +30,9 @@ func (p *provider) GetList(search, city string, category, page, pageLimit uint) 
 
 	err = p.postgres.
 		Model(&structs.Merchant{}).
-		Select("*").
+		Select("id", "name", "logo").
 		Where(where).
+		Count(&maxPage).
 		Limit(int(pageLimit)).
 		Offset((int(page) - 1) * int(pageLimit)).
 		Scan(&merchant).
