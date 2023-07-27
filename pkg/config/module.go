@@ -32,6 +32,15 @@ type Server struct {
 	SecretKey string `mapstructure:"secret_key"`
 }
 
+// CFT Oracle configuration
+type CFT struct {
+	Username    string `json:"username"`
+	Password    string `json:"password"`
+	Host        string `json:"host"`
+	Port        string `json:"port"`
+	ServiceName string `mapstructure:"service_name"`
+}
+
 // SMS configuration
 type SMS struct {
 	User              string `json:"user"`
@@ -48,4 +57,5 @@ type Config struct {
 	Redis    Redis    `json:"redis"`
 	Server   Server   `json:"server"`
 	SMS      SMS      `mapstructure:"sms_service"`
+	CFT      CFT      `json:"cft"`
 }

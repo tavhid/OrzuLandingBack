@@ -2,6 +2,7 @@ package databases
 
 import (
 	"cl/pkg/config"
+	"database/sql"
 
 	"github.com/go-redis/redis"
 	"github.com/sirupsen/logrus"
@@ -14,6 +15,9 @@ var RedisModule = fx.Provide(NewRedisConn)
 
 // PostgresModule ...
 var PostgresModule = fx.Provide(NewPostgresConn)
+
+// CFTModule ...
+var CFTModule = fx.Provide(NewCFTConn)
 
 // Dependencies ...
 type Dependencies struct {
@@ -31,4 +35,9 @@ func NewRedisConn(params Dependencies) *redis.Client {
 // NewPostgresConn ...
 func NewPostgresConn(params Dependencies) *gorm.DB {
 	return Postgres(params)
+}
+
+// NewCFTConn ...
+func NewCFTConn(params Dependencies) *sql.DB {
+	return Cft(params)
 }

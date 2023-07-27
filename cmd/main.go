@@ -22,6 +22,7 @@ func main() {
 		logger.Module,
 		databases.PostgresModule,
 		databases.RedisModule,
+		databases.CFTModule,
 
 		service.Module,
 		storage.Module,

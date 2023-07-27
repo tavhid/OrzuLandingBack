@@ -5,6 +5,8 @@ import (
 	"cl/pkg/bootstrap/http/misc/response"
 )
 
+// count: 0.5, percent: 3
+
 func (p *provider) Get(id uint) (merchant structs.Merchant, commissions []structs.MonthCommissionOfMerchant, affiliates []structs.AffiliateOfMerchant, err error) {
 
 	err = p.postgres.

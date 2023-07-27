@@ -8,10 +8,11 @@ import (
 
 type Merchant struct {
 	Model
-	Name     string `json:"name"`
-	Category string `json:"category,omitempty"`
-	Logo     string `json:"logo"`
-	City     string `json:"city,omitempty"`
+	MerchantID string   `json:"merchant_id"`
+	Name       string   `json:"name"`
+	Category   string   `json:"category,omitempty"`
+	Logo       string   `json:"logo"`
+	City       []string `json:"city,omitempty"`
 }
 
 type MerchantApplication struct {

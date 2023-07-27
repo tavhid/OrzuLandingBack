@@ -32,3 +32,4 @@ config.json
 # IDE / Dev env.
 .vscode
 cmd/cmd
+test*
